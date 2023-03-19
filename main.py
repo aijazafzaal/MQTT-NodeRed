@@ -21,9 +21,9 @@ frequency = 15000
 pin1 = Pin(4, Pin.OUT)    
 pin2 = Pin(18, Pin.OUT)     
 
-ssid = 'Go To Hell'
-password = '52646254'
-mqtt_server = '192.168.2.110'
+ssid = ''
+password = ''
+mqtt_server = ''
 client_id = ubinascii.hexlify(machine.unique_id())
 topic_sub = b'esp/control'
 topic_pub = b'esp/ulterasonic/value'
