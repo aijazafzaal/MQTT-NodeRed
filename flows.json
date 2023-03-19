@@ -1,0 +1,344 @@
+[
+    {
+        "id": "88bc8663a3979347",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ccd06a2ea89a5d38",
+        "type": "mqtt in",
+        "z": "88bc8663a3979347",
+        "name": "",
+        "topic": "esp/ulterasonic/value",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "76c65296cb3e15af",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 440,
+        "wires": [
+            [
+                "dbf7b70bf631cdcf",
+                "04bc758f0bc8bb60",
+                "166f90ac735ca59e"
+            ]
+        ]
+    },
+    {
+        "id": "27371e13ef2faf32",
+        "type": "ui_toast",
+        "z": "88bc8663a3979347",
+        "position": "top right",
+        "displayTime": "10",
+        "highlight": "red",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": true,
+        "className": "[mg.payload]",
+        "topic": "Object Detected",
+        "name": "Object",
+        "x": 790,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "dbf7b70bf631cdcf",
+        "type": "ui_chart",
+        "z": "88bc8663a3979347",
+        "name": "",
+        "group": "475ec9ea39203e28",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": " ",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "400",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 570,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "04bc758f0bc8bb60",
+        "type": "function",
+        "z": "88bc8663a3979347",
+        "name": "",
+        "func": "var payload = msg.payload;\nif(payload<15)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 580,
+        "wires": [
+            [
+                "27371e13ef2faf32",
+                "e54ba3cb14b91155"
+            ]
+        ]
+    },
+    {
+        "id": "35c6274ca36bc498",
+        "type": "ui_audio",
+        "z": "88bc8663a3979347",
+        "name": "Audio massege",
+        "group": "475ec9ea39203e28",
+        "voice": "Google UK English Female",
+        "always": true,
+        "x": 1180,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "e54ba3cb14b91155",
+        "type": "change",
+        "z": "88bc8663a3979347",
+        "name": "convert",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "payload",
+                "fromt": "msg",
+                "to": "caution the object detected",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 540,
+        "wires": [
+            [
+                "35c6274ca36bc498"
+            ]
+        ]
+    },
+    {
+        "id": "166f90ac735ca59e",
+        "type": "ui_gauge",
+        "z": "88bc8663a3979347",
+        "name": "",
+        "group": "475ec9ea39203e28",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Distance 'Cm'",
+        "label": "Distance",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "400",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 620,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "0d5b7e8e8619dc71",
+        "type": "mqtt out",
+        "z": "88bc8663a3979347",
+        "name": "",
+        "topic": "esp/control",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "76c65296cb3e15af",
+        "x": 1090,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b92e28701b0bfeb7",
+        "type": "ui_button",
+        "z": "88bc8663a3979347",
+        "name": "",
+        "group": "f3d64521a8c446ee",
+        "order": 2,
+        "width": 8,
+        "height": 1,
+        "passthru": false,
+        "label": "forward",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "forward",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 480,
+        "y": 80,
+        "wires": [
+            [
+                "0d5b7e8e8619dc71"
+            ]
+        ]
+    },
+    {
+        "id": "69696d04c2ab7230",
+        "type": "ui_button",
+        "z": "88bc8663a3979347",
+        "name": "",
+        "group": "f3d64521a8c446ee",
+        "order": 3,
+        "width": 8,
+        "height": 1,
+        "passthru": false,
+        "label": "backward",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "backward",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 480,
+        "y": 140,
+        "wires": [
+            [
+                "0d5b7e8e8619dc71"
+            ]
+        ]
+    },
+    {
+        "id": "16c1d755bc62d5d1",
+        "type": "ui_button",
+        "z": "88bc8663a3979347",
+        "name": "",
+        "group": "f3d64521a8c446ee",
+        "order": 1,
+        "width": 8,
+        "height": 1,
+        "passthru": false,
+        "label": "stop",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 470,
+        "y": 220,
+        "wires": [
+            [
+                "0d5b7e8e8619dc71"
+            ]
+        ]
+    },
+    {
+        "id": "76c65296cb3e15af",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.2.110",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "475ec9ea39203e28",
+        "type": "ui_group",
+        "name": "ulterasonic",
+        "tab": "dff324c6827d3a5d",
+        "order": 1,
+        "disp": true,
+        "width": 11,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f3d64521a8c446ee",
+        "type": "ui_group",
+        "name": "Motor Control",
+        "tab": "dff324c6827d3a5d",
+        "order": 2,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dff324c6827d3a5d",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
